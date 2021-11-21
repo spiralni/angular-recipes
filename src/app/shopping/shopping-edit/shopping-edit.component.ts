@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core'
+import { Ingredient } from '../../models/ingredient.model'
 
 @Component({
   selector: 'app-shopping-edit',
@@ -6,10 +7,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shopping-edit.component.css']
 })
 export class ShoppingEditComponent implements OnInit {
+  ingredient: Ingredient
 
-  constructor() { }
+  @Output()
+  ingredientAdded = new EventEmitter<Ingredient>()
+  
+  @Output()
+  ingredientDeleted = new EventEmitter<Ingredient>()
 
-  ngOnInit(): void {
+  constructor() { 
+    this.ingredient= new Ingredient('', 0)
   }
 
+  ngOnInit(): void {
+
+  }
+
+  onAdd(): void {
+    this.ingredientAdded.emit({...this.ingredient})
+  }
+
+  onDelete(): void {}
+
+  onClear(): void{
+    this.ingredient.name = ''
+    this.ingredient.amount = 0
+  }
 }

@@ -11,7 +11,6 @@
         <a *ngFor="let recipe of recipes" 
             href="#" 
             class="list-group-item clearfix"
-            (click)="onRecipeSelected(recipe)"
             >
             <app-recipe-item [recipe]="recipe"></app-recipe-item>
         </a>

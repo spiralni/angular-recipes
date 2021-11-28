@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core'
+import { IngredientService } from 'src/app/services/ingredient.service'
 import { Ingredient } from '../../../models/ingredient.model'
 
 @Component({
@@ -9,13 +10,7 @@ import { Ingredient } from '../../../models/ingredient.model'
 export class ShoppingEditComponent implements OnInit {
   ingredient: Ingredient
 
-  @Output()
-  ingredientAdded = new EventEmitter<Ingredient>()
-  
-  @Output()
-  ingredientDeleted = new EventEmitter<Ingredient>()
-
-  constructor() { 
+  constructor(private ingredientService: IngredientService) { 
     this.ingredient= new Ingredient('', 0)
   }
 
@@ -24,7 +19,7 @@ export class ShoppingEditComponent implements OnInit {
   }
 
   onAdd(): void {
-    this.ingredientAdded.emit({...this.ingredient})
+    this.ingredientService.ingredientAdded.emit({...this.ingredient})
   }
 
   onDelete(): void {}

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core'
-import { IngredientService } from 'src/app/services/ingredient.service'
+import { ShoppingListService } from 'src/app/services/shopping-list.service'
 import { Ingredient } from '../../../models/ingredient.model'
 
 @Component({
@@ -10,8 +10,8 @@ import { Ingredient } from '../../../models/ingredient.model'
 export class ShoppingEditComponent implements OnInit {
   ingredient: Ingredient
 
-  constructor(private ingredientService: IngredientService) { 
-    this.ingredient= new Ingredient('', 0)
+  constructor(private shoppingListService: ShoppingListService) { 
+    this.ingredient = new Ingredient('', 0)
   }
 
   ngOnInit(): void {
@@ -19,7 +19,7 @@ export class ShoppingEditComponent implements OnInit {
   }
 
   onAdd(): void {
-    this.ingredientService.ingredientAdded.emit({...this.ingredient})
+    this.shoppingListService.addIngredient(this.ingredient)
   }
 
   onDelete(): void {}

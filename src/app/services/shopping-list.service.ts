@@ -30,6 +30,11 @@ export class ShoppingListService implements OnInit {
         this.ingredientsChanged.emit([...this.ingredients])
     }
 
+    addIngredients(ingredients: Ingredient[]) {
+        this.ingredients = [...this.ingredients, ...ingredients]
+        this.ingredientsChanged.emit([...this.ingredients])
+    }
+
     getIngredients(): Ingredient[] {
         return [...this.ingredients]
     }

@@ -1,3 +1,4 @@
+import { ThrowStmt } from "@angular/compiler"
 import { EventEmitter, Injectable } from "@angular/core"
 import { Ingredient } from "../models/ingredient.model"
 import { Recipe } from "../models/recipe.model"
@@ -23,6 +24,10 @@ export class RecipeService {
 
     getRecipes(): Recipe[] {
         return this.recipes
+    }
+
+    getRecipe(index: number): Recipe {
+        return this.recipes[index]
     }
 
 }

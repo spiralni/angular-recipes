@@ -7,10 +7,4 @@ import { Component, EventEmitter, Output } from "@angular/core";
     styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-    @Output()
-    linkSelected = new EventEmitter<string>()
-
-    onLinkClick(link: string) {
-        this.linkSelected.emit(link)
-    }
 }

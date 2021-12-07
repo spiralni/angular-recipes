@@ -7,9 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-recipes';
-  selectedLink: string = 'recipe'
-
-  onLinkSelected(feature: string): void {
-    this.selectedLink = feature
-  }
 }

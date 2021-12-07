@@ -11,7 +11,7 @@
         <a *ngFor="let recipe of recipes; let index = index" 
             class="list-group-item clearfix"
             style="cursor: pointer;"
-            [routerLink]="['/recipes', index]"
+            [routerLink]="[index]"
             >
             <app-recipe-item [recipe]="recipe"></app-recipe-item>
         </a>

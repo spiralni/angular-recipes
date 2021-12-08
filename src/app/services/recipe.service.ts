@@ -7,9 +7,6 @@ import { Recipe } from "../models/recipe.model"
     providedIn: 'root'
 })
 export class RecipeService {
-
-    recipeSelected = new EventEmitter<Recipe>()
-
     private recipes: Recipe[] = [
         new Recipe(
             "Recipe 1", 
@@ -28,6 +25,5 @@ export class RecipeService {
 
     getRecipe(index: number): Recipe {
         return this.recipes[index]
-    }
-
+    } 
 }

@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable, OnInit } from "@angular/core"
+import { Subject } from "rxjs"
 import { Ingredient } from "../models/ingredient.model"
 
 @Injectable({
@@ -12,7 +13,7 @@ export class ShoppingListService implements OnInit {
         new Ingredient("tomato", 1),
     ]
 
-    ingredientsChanged = new EventEmitter<Ingredient[]>()
+    ingredientsChanged = new Subject<Ingredient[]>()
 
     constructor() {
 
@@ -27,12 +28,12 @@ export class ShoppingListService implements OnInit {
             return
         }
         this.ingredients.push(ingredient) 
-        this.ingredientsChanged.emit([...this.ingredients])
+        this.ingredientsChanged.next([...this.ingredients])
     }
 
     addIngredients(ingredients: Ingredient[]) {
         this.ingredients = [...this.ingredients, ...ingredients]
-        this.ingredientsChanged.emit([...this.ingredients])
+        this.ingredientsChanged.next([...this.ingredients])
     }
 
     getIngredients(): Ingredient[] {

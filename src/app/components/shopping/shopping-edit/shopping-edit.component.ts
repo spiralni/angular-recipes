@@ -14,6 +14,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
   isEditing: boolean = false
   ingredient: Ingredient
+  editIndex: number = -1
   suscription: Subscription | undefined
 
   constructor(private shoppingListService: ShoppingListService) { 
@@ -27,6 +28,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.suscription = this.shoppingListService.editIngredient
       .subscribe((index: number) => {
+        this.editIndex = index
         this.isEditing = true
         this.ingredient = this.shoppingListService.getIngredient(index)
         this.form?.setValue({
@@ -36,16 +38,45 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
       })
   }
 
-  addItem(): void {
+  saveIngredient(): void {
+    if (this.isEditing) {
+      this.updateIngredient()
+      return
+    }
+
+    this.addIngredient()
+  }
+
+  private addIngredient(): void {
     this.shoppingListService.addIngredient(
       new Ingredient(this.form?.value.name, this.form?.value.amount)
     )
   }
 
-  onDelete(): void {}
+  private updateIngredient(): void {
+    const { name, amount } = this.form?.value
+    const newIngredient = new Ingredient(name, amount)
+    this.shoppingListService.updateIngredient(this.editIndex, newIngredient)
+
+    this.resetForm()
+  }
+
+  resetForm() {
+    this.editIndex = -1
+    this.isEditing = false
+    this.form?.reset()
+  }
+
+  onDelete(): void {
+    this.shoppingListService.deleteIngredient(this.editIndex)
+    this.resetForm()
+  }
 
   onClear(): void{
-    this.ingredient.name = ''
-    this.ingredient.amount = 0
+    this.resetForm()
+  }
+
+  get submitButtonLabel() {
+    return this.isEditing ? 'Update' : 'Add'
   }
 }

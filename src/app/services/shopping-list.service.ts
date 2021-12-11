@@ -6,7 +6,7 @@ import { Ingredient } from "../models/ingredient.model"
     providedIn: 'root'
 })
 export class ShoppingListService implements OnInit {
-    
+
     private ingredients: Ingredient[] = [
         new Ingredient("onion", 2),
         new Ingredient("lettuce", 1),
@@ -29,13 +29,18 @@ export class ShoppingListService implements OnInit {
             return
         }
         this.ingredients.push(ingredient) 
-        this.ingredientsChanged.next([...this.ingredients])
+        this.notifyIngredientsChanged()
     }
 
     addIngredients(ingredients: Ingredient[]) {
         this.ingredients = [...this.ingredients, ...ingredients]
-        this.ingredientsChanged.next([...this.ingredients])
+        this.notifyIngredientsChanged()
     }
+
+    updateIngredient(editIndex: number, newIngredient: Ingredient) {
+        this.ingredients[editIndex] = newIngredient
+        this.notifyIngredientsChanged()
+      }
 
     getIngredients(): Ingredient[] {
         return [...this.ingredients]
@@ -45,8 +50,16 @@ export class ShoppingListService implements OnInit {
         return this.ingredients[index]
     }
 
+    deleteIngredient(index: number) {
+       this.ingredients.splice(index, 1)
+        this.notifyIngredientsChanged()
+    }
+
     setIngredientToEdit(index: number): void {
         this.editIngredient.next(index)
     }
 
+    private notifyIngredientsChanged(): void {
+        this.ingredientsChanged.next([...this.ingredients])
+    }
 }

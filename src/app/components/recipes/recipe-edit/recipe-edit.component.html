@@ -1,1 +1,14 @@
-<p>recipe-edit works!</p>
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
+    <input 
+        type="text" 
+        id="name"
+        formControlName="name" 
+        class="form-control">
+        <span>This is a validation for name {{ form.controls['name'].valid }}</span>
+    <input 
+        type="number" 
+        id="amount"
+        formControlName="amount"
+        class="form-control">
+    <button class="btn btn-primary" type="submit">Save</button>
+</form>

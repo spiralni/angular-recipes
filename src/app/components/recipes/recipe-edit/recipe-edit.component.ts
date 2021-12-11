@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,6 +11,8 @@ export class RecipeEditComponent implements OnInit {
   id: number
   isEditing: boolean = false
 
+  form: FormGroup = new FormGroup({});
+
   constructor(private route: ActivatedRoute) { 
     this.id = 0
   }
@@ -20,6 +23,14 @@ export class RecipeEditComponent implements OnInit {
       this.id = +params['id']
       this.isEditing = this.id !== null
     })
+
+    this.form = new FormGroup({
+      'name': new FormControl('', [ Validators.required ]),
+      'amount': new FormControl(30)
+    })
   }
 
+  onSubmit(): void {
+    console.log(this.form)
+  }
 }

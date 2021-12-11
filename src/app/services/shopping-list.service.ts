@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable, OnInit } from "@angular/core"
+import { Injectable, OnInit } from "@angular/core"
 import { Subject } from "rxjs"
 import { Ingredient } from "../models/ingredient.model"
 
@@ -14,6 +14,7 @@ export class ShoppingListService implements OnInit {
     ]
 
     ingredientsChanged = new Subject<Ingredient[]>()
+    editIngredient  = new Subject<number>()
 
     constructor() {
 
@@ -38,6 +39,14 @@ export class ShoppingListService implements OnInit {
 
     getIngredients(): Ingredient[] {
         return [...this.ingredients]
+    }
+
+    getIngredient(index: number): Ingredient {
+        return this.ingredients[index]
+    }
+
+    setIngredientToEdit(index: number): void {
+        this.editIngredient.next(index)
     }
 
 }

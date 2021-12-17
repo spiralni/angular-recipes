@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from "@angular/core";
+import { FirebaseService } from "src/app/services/firebase.service";
 
 @Component({
     selector: 'app-header',
@@ -6,4 +7,12 @@ import { Component, EventEmitter, Output } from "@angular/core";
     styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+
+    constructor(private firebaseService: FirebaseService) {
+
+    }
+
+    onSaveData(): void {
+        this.firebaseService.storeRecipes()
+    }
 }

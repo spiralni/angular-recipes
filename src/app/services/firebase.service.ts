@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from "@angular/core"
 import { HttpClient } from '@angular/common/http'
-import { RecipeService } from "./recipe.service";
-import { Recipe } from "../models/recipe.model";
-import { tap } from "rxjs/operators";
+import { RecipeService } from "./recipe.service"
+import { Recipe } from "../models/recipe.model"
+import { tap, map } from "rxjs/operators"
 
 @Injectable({
     providedIn: 'root'
@@ -27,7 +27,11 @@ export class FirebaseService {
     fetchRecipes() {
         this.http.get<Recipe[]>(`${this.FirebaseURL}recipes.json`)
         .pipe(
-            tap(res => console.log(res))
+            tap(res => console.log(res)),
+            map(res => res.map(recipe => {
+                    return { ...recipe, ingredients: recipe.ingredients || [] }
+                })
+            )
         )
         .subscribe(res => 
             this.recipeService.setRecipes(res)

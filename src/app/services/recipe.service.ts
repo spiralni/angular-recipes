@@ -22,6 +22,11 @@ export class RecipeService {
         new Recipe("Recipe 2", "This is recipe 2", "https://image.shutterstock.com/image-photo/blank-vintage-recipe-cooking-book-600w-504504346.jpg"),
     ]
 
+    setRecipes(recipes: Recipe[]): void {
+        this.recipes = recipes
+        this.notifyRecipesChanged()
+    }
+
     getRecipes(): Recipe[] {
         return this.recipes
     }
@@ -37,6 +42,11 @@ export class RecipeService {
 
     updateRecipe(index: number, newRecipe: Recipe) {
         this.recipes[index] = newRecipe
+        this.notifyRecipesChanged()
+    }
+
+    removeRecipe(index: number) {
+        this.recipes.splice(index, 1)
         this.notifyRecipesChanged()
     }
 

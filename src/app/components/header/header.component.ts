@@ -15,4 +15,8 @@ export class HeaderComponent {
     onSaveData(): void {
         this.firebaseService.storeRecipes()
     }
+
+    onFetchRecipe() {
+        this.firebaseService.fetchRecipes()
+    }
 }

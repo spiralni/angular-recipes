@@ -17,6 +17,8 @@ export class HeaderComponent {
     }
 
     onFetchRecipe() {
-        this.firebaseService.fetchRecipes()
+        this.firebaseService
+            .fetchRecipes()
+            .subscribe()
     }
 }

@@ -3,12 +3,14 @@ import { HttpClient } from '@angular/common/http'
 import { RecipeService } from "./recipe.service"
 import { Recipe } from "../models/recipe.model"
 import { tap, map } from "rxjs/operators"
+import { Observable } from "rxjs"
 
 @Injectable({
     providedIn: 'root'
 })
 export class FirebaseService {
     private FirebaseURL: string = 'https://angular-recipes-3df14-default-rtdb.firebaseio.com/'
+    private RecipesURL: string = `${this.FirebaseURL}recipes.json`
 
     constructor(
         private http: HttpClient,
@@ -19,22 +21,20 @@ export class FirebaseService {
     storeRecipes() {
         const recipes: Recipe[]  = this.recipeService.getRecipes()
         this.http.put(
-            `${this.FirebaseURL}recipes.json`,
+            this.RecipesURL,
             recipes
         ).subscribe(res => console.log(res))
     }
 
     fetchRecipes() {
-        this.http.get<Recipe[]>(`${this.FirebaseURL}recipes.json`)
+        return this.http.get<Recipe[]>(this.RecipesURL)
         .pipe(
             tap(res => console.log(res)),
             map(res => res.map(recipe => {
                     return { ...recipe, ingredients: recipe.ingredients || [] }
                 })
-            )
-        )
-        .subscribe(res => 
-            this.recipeService.setRecipes(res)
+            ),
+            tap(res => this.recipeService.setRecipes(res))
         )
     }
 }

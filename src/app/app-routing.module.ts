@@ -6,6 +6,7 @@ import { RecipeItemComponent } from "./components/recipes/recipe-item/recipe-ite
 import { RecipeStartComponent } from "./components/recipes/recipe-start/recipe-start.component"
 import { RecipesComponent } from "./components/recipes/recipes.component"
 import { ShoppingListComponent } from "./components/shopping/shopping-list/shopping-list.component"
+import { RecipeResolverService } from "./services/recipe-resolver.service"
 
 const routes: Routes = [
     {
@@ -31,7 +32,8 @@ const routes: Routes = [
         },
         {
           path: ':id',
-          component: RecipeDetailComponent
+          component: RecipeDetailComponent,
+          resolve: [RecipeResolverService]
         }
       ]
     },
